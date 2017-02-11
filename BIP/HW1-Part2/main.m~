@@ -1,0 +1,22 @@
+img = imread('test-images/cat.bmp');
+img = double(img)./255.0;
+subplot(3,3,1),imshow(img);
+title('Original image');
+window_sizes = [5 9 17];
+epsilons = [0.1*0.1 0.2*0.2 0.4*0.4];
+for i = 1 : numel(window_sizes);
+    for j = 1: numel(epsilons)
+        w = 5;
+        [meanI, meanP, varI, covIP] = local_stats(img, img,w);
+        epsilon = 0.1*0.1;
+        a = covIP./(varI+epsilon);
+        b = meanP - a.*meanI;
+        mean_a = local_mean(a,w);
+        mean_b = local_mean(b,w);
+        q = mean_a.*img + mean_b;
+        subplot(3,3,), imshow(q);
+        
+    end
+end
+
+
