@@ -1,0 +1,11 @@
+img = imread('stare-images/im0001.ppm');
+imshow(img);
+img = mat2gray(img(:,:,2));
+imshow(img);
+sigma = 1.5;
+L = 9;
+angle = 30;
+im_match = matched_filter(img, sigma, L, angle);
+im_gauss = fgauss(img, sigma, L, angle);
+subplot(1,2,1),imshow(im_match);
+
